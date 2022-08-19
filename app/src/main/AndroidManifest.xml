@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quench">
         <activity
-            android:name=".MainActivity"
+            android:name=".loginuser_main"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
