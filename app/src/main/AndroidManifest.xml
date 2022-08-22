@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quench">
         <activity
+            android:name=".loginpage_ngo"
+            android:exported="false" />
+        <activity
             android:name=".loginuser_main"
             android:exported="true">
             <intent-filter>
