@@ -14,14 +14,24 @@ import android.widget.VideoView;
 public class loginuser_main extends AppCompatActivity {
 
     VideoView videoView;
-    Button button;
+    Button login;
+    TextView signup;
+    EditText username, password1;
+    private FirebaseAuth mAuth;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loginpage_user);
-
+        setContentView(R.layout.activity_main);
+        login = findViewById(R.id.Submit);
         videoView = findViewById(R.id.video_view);
+        username = findViewById(R.id.login_email);
+        password1= findViewById(R.id.password_login);
+         signup= findViewById(R.id.login_register);
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.back_orange);
         videoView.setVideoURI(uri);
         videoView.start();
@@ -32,15 +42,48 @@ public class loginuser_main extends AppCompatActivity {
                 mediaPlayer.setLooping(true);
             }
         });
-        button = findViewById(R.id.Submit);
-        button.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(loginuser_main.this, loginpage_ngo.class);
+                String email = username.getText().toString();
+                String password = password1.getText().toString();
+
+
+
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signInWithEmailAndPassword(email,password)
+                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if (task.isSuccessful()) {
+
+                                   Intent intent = new Intent(MainActivity.this, user_home.class);
+                                   startActivity(intent);
+                                } else {
+                                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+
+                               }
+                           }
+                                });
+
+                            }
+                        });
+//        if(mAuth.getCurrentUser()!=null)
+//        {
+//            Intent intent = new Intent(MainActivity.this, user_home.class);
+//            startActivity(intent);
+//        }
+
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, signup_user1.class);
                 startActivity(intent);
             }
         });
-    }
+            }
 
     @Override
     protected void onPostResume() {
@@ -65,4 +108,5 @@ public class loginuser_main extends AppCompatActivity {
         super.onDestroy();
         videoView.stopPlayback();
     }
-}
+
+    }
