@@ -28,11 +28,6 @@ public class loginpage_ngo extends AppCompatActivity {
             }
         });
     }
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        videoView.resume();
-    }
 
     @Override
     protected void onRestart() {
@@ -50,5 +45,11 @@ public class loginpage_ngo extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         videoView.stopPlayback();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoView.resume();
     }
 }
