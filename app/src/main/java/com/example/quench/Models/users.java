@@ -1,4 +1,4 @@
-package com.example.personal.Models;
+package com.example.quench.Models;
 
 public class users {
     String eMail, password;
