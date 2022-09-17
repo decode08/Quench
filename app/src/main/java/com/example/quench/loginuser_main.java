@@ -1,15 +1,24 @@
 package com.example.quench;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class loginuser_main extends AppCompatActivity {
 
@@ -23,7 +32,7 @@ public class loginuser_main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.loginuser_main);
         login = findViewById(R.id.Submit);
         videoView = findViewById(R.id.video_view);
         username = findViewById(R.id.login_email);
@@ -52,16 +61,16 @@ public class loginuser_main extends AppCompatActivity {
 
                 mAuth = FirebaseAuth.getInstance();
                 mAuth.signInWithEmailAndPassword(email,password)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(loginuser_main.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (task.isSuccessful()) {
 
-                                   Intent intent = new Intent(MainActivity.this, user_home.class);
+                                   Intent intent = new Intent(loginuser_main.this, user_home.class);
                                    startActivity(intent);
                                 } else {
-                                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(loginuser_main.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
 
                                }
                            }
@@ -79,7 +88,7 @@ public class loginuser_main extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, signup_user1.class);
+                Intent intent = new Intent(loginuser_main.this, signup_user1.class);
                 startActivity(intent);
             }
         });

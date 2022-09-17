@@ -1,4 +1,4 @@
-package com.example.personal;
+package com.example.quench;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.personal.Models.users;
+import com.example.quench.Models.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,7 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class signup_user1 extends AppCompatActivity {
     Button start;
     private FirebaseAuth mAuth;
-    FirebaseDatabase database;
+   FirebaseDatabase database;
+   TextView signin;
     EditText email1, password1;
 
     @Override
@@ -32,6 +34,8 @@ public class signup_user1 extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         email1 = findViewById(R.id.email);
         password1 = findViewById(R.id.password);
+        signin = findViewById(R.id.Signin);
+
 
 
 
@@ -50,11 +54,11 @@ public class signup_user1 extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (task.isSuccessful()) {
-                         users user = new users(email1.getText().toString() , password1.getText().toString());
+                       users user = new users(email1.getText().toString() , password1.getText().toString());
                          String id = task.getResult().getUser().getUid();
                          database.getReference().child("users").child(id).setValue(user);
                                     Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(signup_user1.this, MainActivity.class);
+                                    Intent intent = new Intent(signup_user1.this, user_home.class);
                                     startActivity(intent);
                                 } else {
                                     Toast.makeText(signup_user1.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -62,6 +66,15 @@ public class signup_user1 extends AppCompatActivity {
                                 }
                             }
                         });
+
+            }
+        });
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(signup_user1.this,loginuser_main.class);
+                startActivity(intent);
 
             }
         });
