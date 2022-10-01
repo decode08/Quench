@@ -10,6 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quench">
         <activity
+            android:name=".donor_reciever"
+            android:exported="true" >
+            <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+        <activity
             android:name=".signup_user1"
             android:exported="false" />
         <activity
@@ -21,12 +29,11 @@
         <activity
             android:name=".loginuser_main"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-    </application>
+
+        </application>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
 </manifest>
